@@ -524,7 +524,7 @@
     </p>
 
     <form class="hero-form" onsubmit="handleSignup(event, 'hero')">
-      <input type="email" placeholder="Enter your email" required id="hero-email" autocomplete="email"/>
+      <input type="email" name="email" placeholder="Enter your email" required id="hero-email" autocomplete="email"/>
       <button type="submit">Get early access</button>
     </form>
     <p class="hero-note">✓ Free to join &nbsp;·&nbsp; No spam &nbsp;·&nbsp; Be first when we launch</p>
@@ -733,7 +733,7 @@
     <h2>Stop wasting food.<br/>Start eating <em>better.</em></h2>
     <p>Join thousands of people who are cooking smarter, spending less, and wasting nothing.</p>
     <form class="cta-form" onsubmit="handleSignup(event, 'cta')">
-      <input type="email" placeholder="Your email address" required id="cta-email" autocomplete="email"/>
+      <input type="email" name="email" placeholder="Your email address" required id="cta-email" autocomplete="email"/>
       <button type="submit">Join the waitlist</button>
     </form>
   </section>
@@ -756,16 +756,20 @@
   <div class="toast" id="toast">🎉 You're on the list! We'll be in touch soon.</div>
 
   <script>
-    // Email signups (stored locally for now — swap with Mailchimp/Formspree later)
-    const emails = [];
-
-    function handleSignup(e, source) {
+    async function handleSignup(e, source) {
       e.preventDefault();
       const input = document.getElementById(source === 'hero' ? 'hero-email' : 'cta-email');
       const email = input.value.trim();
       if (!email) return;
 
-      emails.push({ email, source, date: new Date().toISOString() });
+      try {
+        await fetch('https://formspree.io/f/xzdjjeka', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email, source })
+        });
+      } catch(err) { console.error(err); }
+
       input.value = '';
 
       // Show toast
