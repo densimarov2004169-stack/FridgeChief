@@ -524,7 +524,8 @@
     </p>
 
     <form class="hero-form" onsubmit="handleSignup(event, 'hero')">
-      <input type="email" name="email" placeholder="Enter your email" required id="hero-email" autocomplete="email"/>
+      <input type="email" name="EMAIL" placeholder="Enter your email" required id="hero-email" autocomplete="email"/>
+      <div style="position:absolute;left:-5000px;" aria-hidden="true"><input type="text" name="b_24445ce84223af354061ccce3_35ff76f067" tabindex="-1" value=""></div>
       <button type="submit">Get early access</button>
     </form>
     <p class="hero-note">✓ Free to join &nbsp;·&nbsp; No spam &nbsp;·&nbsp; Be first when we launch</p>
@@ -733,7 +734,8 @@
     <h2>Stop wasting food.<br/>Start eating <em>better.</em></h2>
     <p>Join thousands of people who are cooking smarter, spending less, and wasting nothing.</p>
     <form class="cta-form" onsubmit="handleSignup(event, 'cta')">
-      <input type="email" name="email" placeholder="Your email address" required id="cta-email" autocomplete="email"/>
+      <input type="email" name="EMAIL" placeholder="Your email address" required id="cta-email" autocomplete="email"/>
+      <div style="position:absolute;left:-5000px;" aria-hidden="true"><input type="text" name="b_24445ce84223af354061ccce3_35ff76f067" tabindex="-1" value=""></div>
       <button type="submit">Join the waitlist</button>
     </form>
   </section>
@@ -763,16 +765,18 @@
       if (!email) return;
 
       try {
-        await fetch('https://formspree.io/f/xzdjjeka', {
+        await fetch('https://github.us7.list-manage.com/subscribe/post?u=24445ce84223af354061ccce3&id=35ff76f067&f_id=00309de4f0', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ email, source })
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            EMAIL: email,
+            b_24445ce84223af354061ccce3_35ff76f067: ''
+          })
         });
       } catch(err) { console.error(err); }
 
       input.value = '';
-
-      // Show toast
       const toast = document.getElementById('toast');
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3500);
